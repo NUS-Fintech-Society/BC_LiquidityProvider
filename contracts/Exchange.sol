@@ -13,6 +13,10 @@ contract exchange {
   // TODO: Change this arbitrary value to something that makes more sense 
   uint256 exchangeRateEtherToErc = 0.5 ether;
 
+  // TODO: This variable might not be needed depending on the behaviour of _burn() function
+  uint public totalSupply;
+  mapping(address => unit) public balanceOf;
+
   struct Transaction {
     address user;
     TransactionType transactionType;
@@ -20,5 +24,22 @@ contract exchange {
     uint256 amtEther;
     uint256 amtErc;
     uint256 date;
+  }
+
+  function addLiquidityEther(uint value) {
+    amtEtherTotal = add(amtEtherTotal, value);
+  }
+
+  function addLiquidityERC20(uint value) {
+    amtErc20Total = add(amtErc20Total, value);
+  }
+
+
+  /**
+   * TODO: Not very sure whether this should burn totalSupply, or take in ether / ERC type and burn only that particular token
+   */
+  function _burn(address from, uint value) internal {
+    balanceOf[from] = sub(balanceOf[from], value);
+    totalSupply = sub(totalSupply, value);
   }
 }
