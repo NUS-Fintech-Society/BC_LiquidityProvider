@@ -34,8 +34,22 @@ class Exchange extends React.Component {
   handleExchange = (e) => {
     e.preventDefault();
     try {
-      this.props.exchangeContract.methods
-        .setExchangeRate(this.state.exchangeRate)
+      if (this.state.exchangeType === "etherToERC20") {
+        this.props.exchangeContract.methods
+        .exchangeEtherToERC20(this.state.exchangeAmt)
+        .send({ from: this.props.accounts[0], value: this.props.web3.utils.toWei(this.state.exchangeAmt, 'ether') })
+        .on("receipt", (receipt) => {
+          console.log(receipt);
+          alert("Success. Please wait for reload");
+          window.location.reload(false);
+        })
+        .on("error", (error) => {
+          alert("Unsuccess with error message" + error.message);
+          window.location.reload(false);
+        });
+      } else if (this.state.exchangeType === "erc20ToEther") {
+        this.props.exchangeContract.methods
+        .exchangeERC20ToEther(this.state.exchangeAmt)
         .send({ from: this.props.accounts[0] })
         .on("receipt", (receipt) => {
           console.log(receipt);
@@ -46,6 +60,8 @@ class Exchange extends React.Component {
           alert("Unsuccess with error message" + error.message);
           window.location.reload(false);
         });
+      }
+      
     } catch (err) {
       console.log(err);
     }
