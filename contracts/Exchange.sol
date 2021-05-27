@@ -37,6 +37,15 @@ contract exchange {
         uint256 amtErc;
         uint256 date;
     }
+    
+    function getContractOwner() external view returns (address owner) {
+        returns owner;
+    }
+    
+    function getCommissionFeeEarned() external view returns (uint256 balanceAmount) {
+        // assumes that all ERC20 coins sent here are commission fees.
+        returns erc20Contract.balanceOf(address(this)); 
+    }
 
     function addLiquidityEther(uint256 value) {
         amtEtherTotal = add(amtEtherTotal, value);
