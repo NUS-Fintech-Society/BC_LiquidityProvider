@@ -66,6 +66,7 @@ class ContractOwner extends React.Component {
   };
 
   handleAddERC20ToPool = (e) => {
+    //add mint function. async.
     e.preventDefault();
     try {
         this.props.exchangeContract.methods.addLiquidityERC20(this.state.addERC20Amt).send({from: this.props.accounts[0]})

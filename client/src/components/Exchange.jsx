@@ -35,6 +35,7 @@ class Exchange extends React.Component {
     e.preventDefault();
     try {
       if (this.state.exchangeType === "etherToERC20") {
+        //no need allowance function. contract send ERC20 straight to user
         this.props.exchangeContract.methods
         .exchangeEtherToERC20(this.state.exchangeAmt)
         .send({ from: this.props.accounts[0], value: this.props.web3.utils.toWei(this.state.exchangeAmt, 'ether') })
@@ -48,6 +49,7 @@ class Exchange extends React.Component {
           window.location.reload(false);
         });
       } else if (this.state.exchangeType === "erc20ToEther") {
+        //allowance function. user allow contract to send to contract. async.
         this.props.exchangeContract.methods
         .exchangeERC20ToEther(this.state.exchangeAmt)
         .send({ from: this.props.accounts[0] })
@@ -107,7 +109,7 @@ class Exchange extends React.Component {
                 onChange={this.handleInputChange}
               >
                 <MenuItem value={"etherToERC20"}>EtherToERC20</MenuItem>
-                <MenuItem value={"erc20ToEther"}>ERC20ToEther</MenuItem>
+                <MenuItem value={"erc20ToEther"}>ERC20ToEther (Note that you will be allowing the contract to send the erc20</MenuItem>
               </Select>
             </FormControl>
           </Grid>
