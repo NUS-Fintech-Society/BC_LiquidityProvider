@@ -51,20 +51,29 @@ contract exchange {
         returns erc20Contract.balanceOf(address(this)); 
     }
 
-    function addLiquidityEther(uint256 value) {    //user.transfer() ether value. payable
+    // TODO: Check this function implementation
+    // For this do we need user.transfer() ? I thought the ether is all in this Exchange.sol contract, so just add to the amtEtherTotal
+    function addLiquidityEther(uint256 value) payable {    //user.transfer() ether value. payable
         amtEtherTotal = add(amtEtherTotal, value);
     }
 
+    // TODO: Check this function implementation
+    // Similar to addLiquidityEther(), I thought this should add liquidity to the current amtERC20Total in this Exchange.sol contract
+    // instead of using the erc20Contract's mint which adds to a particular address?
     function addLiquidityERC20(uint256 value) { //mint the amount of erc20 in frontend
-        amtErc20Total = add(amtErc20Total, value);
+        erc20Contract._mint(owner, value);
     }
 
-    /**
-     * TODO: Not very sure whether this should burn totalSupply, or take in ether / ERC type and burn only that particular token
-     */
-    function _burn(address from, uint256 value) internal {
-        balanceOf[from] = sub(balanceOf[from], value);
-        totalSupply = sub(totalSupply, value);
+    // Amount here is the amount of pool tokens to burn in exchange for ETH and ERC20 returned?
+    function burn(uint256 amount) returns (uint256 amountEther, uint256 amountErc20) {
+        // Get user address from token, and get the amount of ether and ERC20 that the user has added to the pool
+        balanceOf[from] = sub(balanceOf[from], amount);
+
+        // Remove erc20 && ether from the liquidity pool
+        totalSupply = sub(totalSupply, amount);
+
+        tokenContract._burn(msg.sender, amount);
+        // Return ether and ERC20 of owner back to owner
     }
 
     function getCurrentPrice() public view returns (uint256) {   //lets just use manual exchange rate first
