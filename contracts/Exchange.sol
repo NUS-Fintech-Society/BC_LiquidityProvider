@@ -40,21 +40,34 @@ contract exchange {
         uint256 date;
     }
     
+    modifier onlyOwner {
+        require(msg.sender == owner);
+        _;
+    }
+    
     function getContractOwner() external view returns (address owner) {
         returns owner;
     }
 
-    //getTotalAmtEther.
-    //getTotalAmtERC20.  frontend show this value
+    function getTotalAmtEther() external view returns (uint256 balanceAmt) {
+      return amtEtherTotal;
+    }
+    
+    function getTotalAmtERC20() external view returns (uint256 balanceAmt) {
+      return amtErc20Total;
+    }
+
     //getBalanceERC20. button on frontend   xy
     //xy add mint() to erc20 and frontend
     
-    function getCommissionFeeEarned() external view returns (uint256 balanceAmount) {   //better to have a separate var called commissionFee
-        // assumes that all ERC20 coins sent here are commission fees.       
-        returns erc20Contract.balanceOf(address(this));  //return the variable 
+    function getCommissionFeeEarned() external view returns (uint256 balanceAmount) {
+        returns commissionFee; 
     }
 
     //transferCommisionFee()   @bharath    //frontend add button
+    function transferCommisionFeeEarned() external onlyOwner {
+        owner.transfer(comissionFee);
+    }
 
     function addLiquidityEther(uint256 value) {    //user.transfer() ether value. payable
         amtEtherTotal = add(amtEtherTotal, value);
@@ -77,7 +90,7 @@ contract exchange {
         return amtEtherTotal / amtErc20Total;
     }*/
 
-    function setExchangeRate(uint256 newExchangeRate) {
+    function setExchangeRate(uint256 newExchangeRate) public onlyOwner {
         exchangeRateEtherToErc = newExchangeRate;
     }
 
