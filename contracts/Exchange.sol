@@ -69,7 +69,8 @@ contract exchange {
         owner.transfer(comissionFee);
     }
 
-    function addLiquidityEther(uint256 value) {    //user.transfer() ether value. payable
+    function addLiquidityEther(uint256 value) payable {    //user.transfer() ether value. payable
+        owner.transfer(value);
         amtEtherTotal = add(amtEtherTotal, value);
     }
 
@@ -77,13 +78,13 @@ contract exchange {
         amtErc20Total = add(amtErc20Total, value);
     }
 
-    /**
-     * TODO: Not very sure whether this should burn totalSupply, or take in ether / ERC type and burn only that particular token
-     */
-    function _burn(address from, uint256 value) internal {
-        //do it inside erc20. call the _burn() in erc20
-        balanceOf[from] = sub(balanceOf[from], value);
-        totalSupply = sub(totalSupply, value);
+    // Amount here is the amount of pool tokens to burn in exchange for ETH and ERC20 returned?
+    // Only ERC20 contract owner can burn
+    function burn(uint256 amount) returns (uint256 amountEther, uint256 amountErc20) {
+        // Call the ERC20 _burn() contract too
+        balanceOf[from] = sub(balanceOf[from], amount);
+        totalSupply = sub(totalSupply, amount);
+        erc20Contract.burn(owner, amount);
     }
 
     /*function getCurrentPrice() public view returns (uint256) {   //lets just use manual exchange rate first

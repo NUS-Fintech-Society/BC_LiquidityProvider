@@ -34,6 +34,10 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
     string private _name;
     string private _symbol;
 
+    function burn(address account, uint256 amount) public virtual override {
+        _burn(account, amount)
+    }
+
     /**
      * @dev Sets the values for {name} and {symbol}.
      *
@@ -280,7 +284,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
 
         _allowances[owner][spender] = amount;
         emit Approval(owner, spender, amount);
-    }
+    n
 
     /**
      * @dev Hook that is called before any transfer of tokens. This includes
