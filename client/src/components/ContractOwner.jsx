@@ -69,6 +69,7 @@ class ContractOwner extends React.Component {
     //add mint function. async.
     e.preventDefault();
     try {
+        //this.props.erc20contract.methods.mint(exchangecontract.address, 200000).send({from: erc20owner})
         this.props.exchangeContract.methods.addLiquidityERC20(this.state.addERC20Amt).send({from: this.props.accounts[0]})
         .on("receipt", (receipt) => {
             console.log(receipt);
