@@ -4,10 +4,11 @@ class ContractOwner extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        exchangeRate: 0,
-        addEtherAmt: 0,
-        addERC20Amt: 0,
-        commissionFeeEarned: 0,
+      exchangeRate: 0,
+      addEtherAmt: 0,
+      addERC20Amt: 0,
+      commissionFeeEarned: 0,
+      burnERC20: 0,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -15,8 +16,10 @@ class ContractOwner extends React.Component {
     const exchangeRate = await this.props.exchangeContract.methods
       .getExchangeRate()
       .call();
-      this.setState({ exchangeRate: exchangeRate });
-    const commissionFeeEarned = await this.props.exchangeContract.methods.getCommissionFeeEarned().call();
+    this.setState({ exchangeRate: exchangeRate });
+    const commissionFeeEarned = await this.props.exchangeContract.methods
+      .getCommissionFeeEarned()
+      .call();
     this.setState({ commissionFeeEarned: commissionFeeEarned });
   };
 
@@ -32,76 +35,127 @@ class ContractOwner extends React.Component {
   handleSetExchangeRate = (e) => {
     e.preventDefault();
     try {
-        this.props.exchangeContract.methods.setExchangeRate(this.state.exchangeRate).send({from: this.props.accounts[0]})
+      this.props.exchangeContract.methods
+        .setExchangeRate(this.state.exchangeRate)
+        .send({ from: this.props.web3.currentProvider.selectedAddress})
         .on("receipt", (receipt) => {
-            console.log(receipt);
-            alert("Success. Please wait for reload");
-            window.location.reload(false);
+          console.log(receipt);
+          alert("Success. Please wait for reload");
+          window.location.reload(false);
         })
         .on("error", (error) => {
-            alert("Unsuccess with error message" + error.message);
-            window.location.reload(false);
-        })
+          alert("Unsuccess with error message" + error.message);
+          window.location.reload(false);
+        });
     } catch (err) {
-        console.log(err)
+      console.log(err);
     }
   };
 
   handleAddEtherToPool = (e) => {
     e.preventDefault();
     try {
-        this.props.exchangeContract.methods.addLiquidityEther(this.state.addEtherAmt).send({from: this.props.accounts[0], value: this.props.web3.utils.toWei(this.state.addEtherAmt, 'ether')})
+      this.props.exchangeContract.methods
+        .addLiquidityEther(this.state.addEtherAmt)
+        .send({
+          from: this.props.web3.currentProvider.selectedAddress,
+          value: this.props.web3.utils.toWei(this.state.addEtherAmt, "ether"),
+        })
         .on("receipt", (receipt) => {
-            console.log(receipt);
-            alert("Success. Please wait for reload");
-            window.location.reload(false);
+          console.log(receipt);
+          alert("Success. Please wait for reload");
+          window.location.reload(false);
         })
         .on("error", (error) => {
-            alert("Unsuccess with error message" + error.message);
-            window.location.reload(false);
-        })
+          alert("Unsuccess with error message" + error.message);
+          window.location.reload(false);
+        });
     } catch (err) {
-        console.log(err)
+      console.log(err);
     }
   };
 
-  handleAddERC20ToPool = (e) => {
+  handleAddERC20ToPool = async (e) => {
     //add mint function. async.
     e.preventDefault();
     try {
-        //this.props.erc20contract.methods.mint(exchangecontract.address, 200000).send({from: erc20owner})
-        this.props.exchangeContract.methods.addLiquidityERC20(this.state.addERC20Amt).send({from: this.props.accounts[0]})
+      await this.props.erc20Contract.methods
+        .mint(this.props.exchangeContract.address, this.state.addERC20Amt)
+        .send({ from: this.props.web3.currentProvider.selectedAddress });
+      await this.props.exchangeContract.methods
+        .addLiquidityERC20(this.state.addERC20Amt)
+        .send({ from: this.props.web3.currentProvider.selectedAddress})
         .on("receipt", (receipt) => {
-            console.log(receipt);
-            alert("Success. Please wait for reload");
-            window.location.reload(false);
+          console.log(receipt);
+          alert("Success. Please wait for reload");
+          window.location.reload(false);
         })
         .on("error", (error) => {
-            alert("Unsuccess with error message" + error.message);
-            window.location.reload(false);
-        })
+          alert("Unsuccess with error message" + error.message);
+          window.location.reload(false);
+        });
     } catch (err) {
-        console.log(err)
+      console.log(err);
+    }
+  };
+
+  handleReturnCommissionFee = (e) => {
+    e.preventDefault();
+    try {
+      this.props.exchangeContract.methods
+        .transferCommisionFeeEarned()
+        .send({ from: this.props.web3.currentProvider.selectedAddress })
+        .on("receipt", (receipt) => {
+          console.log(receipt);
+          alert("Success. Please wait for reload");
+          window.location.reload(false);
+        })
+        .on("error", (error) => {
+          alert("Unsuccess with error message" + error.message);
+          window.location.reload(false);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  handleBurnERC20 = (e) => {
+    e.preventDefault();
+    try {
+      this.props.exchangeContract.methods
+        .burn(this.state.burnERC20)
+        .send({ from: this.props.web3.currentProvider.selectedAddress })
+        .on("receipt", (receipt) => {
+          console.log(receipt);
+          alert("Success. Please wait for reload");
+          window.location.reload(false);
+        })
+        .on("error", (error) => {
+          alert("Unsuccess with error message" + error.message);
+          window.location.reload(false);
+        });
+    } catch (err) {
+      console.log(err);
     }
   };
 
   render() {
     const useStyles = makeStyles((theme) => ({
-        paper: {
-          marginTop: theme.spacing(8),
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        },
-        form: {
-          width: "100%", // Fix IE 11 issue.
-          marginTop: theme.spacing(3),
-        },
-        submit: {
-          margin: theme.spacing(3, 0, 2),
-        },
-      }));
-      const style = useStyles;
+      paper: {
+        marginTop: theme.spacing(8),
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      },
+      form: {
+        width: "100%", // Fix IE 11 issue.
+        marginTop: theme.spacing(3),
+      },
+      submit: {
+        margin: theme.spacing(3, 0, 2),
+      },
+    }));
+    const style = useStyles;
 
     return (
       <div>
@@ -196,6 +250,55 @@ class ContractOwner extends React.Component {
             style={{ marginTop: "30px", marginBottom: "20px" }}
           >
             Submit
+          </Button>
+        </form>
+
+        <form
+          className={style.form}
+          noValidate
+          onSubmit={this.handleBurnERC20}
+          style={{ marginTop: "30px" }}
+        >
+          <Grid item xs={12}>
+            <TextField
+              name="burnERC20"
+              variant="outlined"
+              required
+              fullWidth
+              id="burnERC20"
+              value={this.state.burnERC20}
+              onChange={this.handleInputChange}
+              label="Burn ___ ERC20:"
+              autoFocus
+            />
+          </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={style.submit}
+            style={{ marginTop: "30px", marginBottom: "20px" }}
+          >
+            Burn
+          </Button>
+        </form>
+
+        <form
+          className={style.form}
+          noValidate
+          onSubmit={this.handleReturnCommissionFee}
+          style={{ marginTop: "30px" }}
+        >
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={style.submit}
+            style={{ marginTop: "30px", marginBottom: "20px" }}
+          >
+            Return Commission Fee
           </Button>
         </form>
       </div>

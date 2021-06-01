@@ -31,14 +31,14 @@ class Exchange extends React.Component {
     });
   }
 
-  handleExchange = (e) => {
+  handleExchange = async(e) => {
     e.preventDefault();
     try {
       if (this.state.exchangeType === "etherToERC20") {
         //no need allowance function. contract send ERC20 straight to user
-        this.props.exchangeContract.methods
+        await this.props.exchangeContract.methods
         .exchangeEtherToERC20(this.state.exchangeAmt)
-        .send({ from: this.props.accounts[0], value: this.props.web3.utils.toWei(this.state.exchangeAmt, 'ether') })
+        .send({ from: this.props.web3.currentProvider.selectedAddress, value: this.props.web3.utils.toWei(this.state.exchangeAmt, 'ether') })
         .on("receipt", (receipt) => {
           console.log(receipt);
           alert("Success. Please wait for reload");
@@ -50,9 +50,10 @@ class Exchange extends React.Component {
         });
       } else if (this.state.exchangeType === "erc20ToEther") {
         //allowance function. user allow contract to send to contract. async.
-        this.props.exchangeContract.methods
+        await this.props.erc20Contract.methods.approve(this.props.exchangeContract.address, this.state.exchangeAmt).send({from: this.props.web3.currentProvider.selectedAddress});
+        await this.props.exchangeContract.methods
         .exchangeERC20ToEther(this.state.exchangeAmt)
-        .send({ from: this.props.accounts[0] })
+        .send({ from: this.props.web3.currentProvider.selectedAddress })
         .on("receipt", (receipt) => {
           console.log(receipt);
           alert("Success. Please wait for reload");

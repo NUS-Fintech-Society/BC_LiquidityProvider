@@ -36,8 +36,12 @@ class HomePage extends React.Component {
       <div>
         <h1>Hi. Description....</h1>
         <h4>
-          Exchange rate: 1 ERC20 ={this.setState}
+          Exchange rate: 1 ERC20 =
           {this.state.exchangeContract.getExchangeRate()} ether
+        </h4>
+        <h4>
+          Total amount of ERC20 tokens:
+          {this.state.exchangeContract.getTotalAmtERC20()}
         </h4>
         {this.state.owner ? (
         <ContractOwner

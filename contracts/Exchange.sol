@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "./ERC20.sol";
 
-contract exchange {
+contract Exchange {
     address owner = msg.sender;
     ERC20 erc20Contract;
     enum TransactionTypes {EtherToErc, ErcToEther}
@@ -23,12 +23,12 @@ contract exchange {
 
     constructor(
         ERC20 erc20Address,
-        uint256 amtErc20,
-        address ownerAddress //no need
+        //uint256 amtErc20,
+        //address ownerAddress //no need
     ) {
         erc20Contract = erc20Address;
-        owner = ownerAddress;
-        erc20contract.transfer(owner, amtErc20); //no need. add the mint() function to erc20.
+        //owner = ownerAddress;
+        //erc20contract.transfer(owner, amtErc20); //no need. add the mint() function to erc20.
     }
 
     struct Transaction {
@@ -57,9 +57,6 @@ contract exchange {
         return amtErc20Total;
     }
 
-    //getBalanceERC20. button on frontend   xy
-    //xy add mint() to erc20 and frontend
-
     function getCommissionFeeEarned()
         external
         view
@@ -68,7 +65,7 @@ contract exchange {
         return commissionFee;
     }
 
-    //transferCommisionFee()   @bharath    //frontend add button
+    //transferCommisionFee()   @bharath    
     function transferCommisionFeeEarned() external onlyOwner {
         owner.transfer(comissionFee);
     }
