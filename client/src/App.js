@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import SimpleStorageContract from "./contracts/SimpleStorage.json";
 import Exchange from "./contracts/Exchange.json";
 import ERC20 from "./contracts/ERC20.json";
 import getWeb3 from "./getWeb3";
