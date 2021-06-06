@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import SimpleStorageContract from "./contracts/SimpleStorage.json";
 import Exchange from "./contracts/Exchange.json";
 import ERC20 from "./contracts/ERC20.json";
 import getWeb3 from "./getWeb3";
+import HomePage from './components/HomePage'
 
 import ErrorPage from "./components/ErrorPage";
 
@@ -35,6 +35,7 @@ class App extends Component {
         deployedNetworkERC20 && deployedNetworkERC20.address
       );
 
+      console.log("Web3: " , web3)
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
       this.setState({
@@ -42,7 +43,7 @@ class App extends Component {
         accounts,
         exchangeContract: exchangeInstance,
         erc20Contract: erc20Instance,
-        addressType: addressType,
+        // addressType: addressType,
       });
     } catch (error) {
       // Catch any errors for any of the above operations.

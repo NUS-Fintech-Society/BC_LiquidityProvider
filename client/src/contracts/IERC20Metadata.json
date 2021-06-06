@@ -238,17 +238,17 @@
     "absolutePath": "/C/Users/Hans Sebastian/Desktop/LiquidityProvider/contracts/IERC20Metadata.sol",
     "exportedSymbols": {
       "IERC20": [
-        621
+        983
       ],
       "IERC20Metadata": [
-        646
+        1008
       ]
     },
-    "id": 647,
+    "id": 1009,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 623,
+        "id": 985,
         "literals": [
           "solidity",
           "^",
@@ -261,11 +261,11 @@
       {
         "absolutePath": "/C/Users/Hans Sebastian/Desktop/LiquidityProvider/contracts/IERC20.sol",
         "file": "./IERC20.sol",
-        "id": 624,
+        "id": 986,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 647,
-        "sourceUnit": 622,
+        "scope": 1009,
+        "sourceUnit": 984,
         "src": "27:22:4",
         "symbolAliases": [],
         "unitAlias": ""
@@ -275,13 +275,13 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 626,
+              "id": 988,
               "name": "IERC20",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 621,
+              "referencedDeclaration": 983,
               "src": "203:6:4"
             },
-            "id": 627,
+            "id": 989,
             "nodeType": "InheritanceSpecifier",
             "src": "203:6:4"
           }
@@ -289,16 +289,16 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "documentation": {
-          "id": 625,
+          "id": 987,
           "nodeType": "StructuredDocumentation",
           "src": "53:120:4",
           "text": " @dev Interface for the optional metadata functions from the ERC20 standard.\n _Available since v4.1._"
         },
         "fullyImplemented": false,
-        "id": 646,
+        "id": 1008,
         "linearizedBaseContracts": [
-          646,
-          621
+          1008,
+          983
         ],
         "name": "IERC20Metadata",
         "nameLocation": "185:14:4",
@@ -306,13 +306,13 @@
         "nodes": [
           {
             "documentation": {
-              "id": 628,
+              "id": 990,
               "nodeType": "StructuredDocumentation",
               "src": "217:56:4",
               "text": " @dev Returns the name of the token."
             },
             "functionSelector": "06fdde03",
-            "id": 633,
+            "id": 995,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -320,23 +320,23 @@
             "nameLocation": "288:4:4",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 629,
+              "id": 991,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "292:2:4"
             },
             "returnParameters": {
-              "id": 632,
+              "id": 994,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 631,
+                  "id": 993,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 633,
+                  "scope": 995,
                   "src": "318:13:4",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -345,7 +345,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 630,
+                    "id": 992,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "318:6:4",
@@ -359,7 +359,7 @@
               ],
               "src": "317:15:4"
             },
-            "scope": 646,
+            "scope": 1008,
             "src": "279:54:4",
             "stateMutability": "view",
             "virtual": false,
@@ -367,13 +367,13 @@
           },
           {
             "documentation": {
-              "id": 634,
+              "id": 996,
               "nodeType": "StructuredDocumentation",
               "src": "341:58:4",
               "text": " @dev Returns the symbol of the token."
             },
             "functionSelector": "95d89b41",
-            "id": 639,
+            "id": 1001,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -381,23 +381,23 @@
             "nameLocation": "414:6:4",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 635,
+              "id": 997,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "420:2:4"
             },
             "returnParameters": {
-              "id": 638,
+              "id": 1000,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 637,
+                  "id": 999,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 639,
+                  "scope": 1001,
                   "src": "446:13:4",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -406,7 +406,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 636,
+                    "id": 998,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "446:6:4",
@@ -420,7 +420,7 @@
               ],
               "src": "445:15:4"
             },
-            "scope": 646,
+            "scope": 1008,
             "src": "405:56:4",
             "stateMutability": "view",
             "virtual": false,
@@ -428,13 +428,13 @@
           },
           {
             "documentation": {
-              "id": 640,
+              "id": 1002,
               "nodeType": "StructuredDocumentation",
               "src": "469:67:4",
               "text": " @dev Returns the decimals places of the token."
             },
             "functionSelector": "313ce567",
-            "id": 645,
+            "id": 1007,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -442,23 +442,23 @@
             "nameLocation": "551:8:4",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 641,
+              "id": 1003,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "559:2:4"
             },
             "returnParameters": {
-              "id": 644,
+              "id": 1006,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 643,
+                  "id": 1005,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 645,
+                  "scope": 1007,
                   "src": "585:5:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -467,7 +467,7 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 642,
+                    "id": 1004,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
                     "src": "585:5:4",
@@ -481,14 +481,14 @@
               ],
               "src": "584:7:4"
             },
-            "scope": 646,
+            "scope": 1008,
             "src": "542:50:4",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 647,
+        "scope": 1009,
         "src": "175:420:4",
         "usedErrors": []
       }
@@ -499,17 +499,17 @@
     "absolutePath": "/C/Users/Hans Sebastian/Desktop/LiquidityProvider/contracts/IERC20Metadata.sol",
     "exportedSymbols": {
       "IERC20": [
-        621
+        983
       ],
       "IERC20Metadata": [
-        646
+        1008
       ]
     },
-    "id": 647,
+    "id": 1009,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 623,
+        "id": 985,
         "literals": [
           "solidity",
           "^",
@@ -522,11 +522,11 @@
       {
         "absolutePath": "/C/Users/Hans Sebastian/Desktop/LiquidityProvider/contracts/IERC20.sol",
         "file": "./IERC20.sol",
-        "id": 624,
+        "id": 986,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 647,
-        "sourceUnit": 622,
+        "scope": 1009,
+        "sourceUnit": 984,
         "src": "27:22:4",
         "symbolAliases": [],
         "unitAlias": ""
@@ -536,13 +536,13 @@
         "baseContracts": [
           {
             "baseName": {
-              "id": 626,
+              "id": 988,
               "name": "IERC20",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 621,
+              "referencedDeclaration": 983,
               "src": "203:6:4"
             },
-            "id": 627,
+            "id": 989,
             "nodeType": "InheritanceSpecifier",
             "src": "203:6:4"
           }
@@ -550,16 +550,16 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "documentation": {
-          "id": 625,
+          "id": 987,
           "nodeType": "StructuredDocumentation",
           "src": "53:120:4",
           "text": " @dev Interface for the optional metadata functions from the ERC20 standard.\n _Available since v4.1._"
         },
         "fullyImplemented": false,
-        "id": 646,
+        "id": 1008,
         "linearizedBaseContracts": [
-          646,
-          621
+          1008,
+          983
         ],
         "name": "IERC20Metadata",
         "nameLocation": "185:14:4",
@@ -567,13 +567,13 @@
         "nodes": [
           {
             "documentation": {
-              "id": 628,
+              "id": 990,
               "nodeType": "StructuredDocumentation",
               "src": "217:56:4",
               "text": " @dev Returns the name of the token."
             },
             "functionSelector": "06fdde03",
-            "id": 633,
+            "id": 995,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -581,23 +581,23 @@
             "nameLocation": "288:4:4",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 629,
+              "id": 991,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "292:2:4"
             },
             "returnParameters": {
-              "id": 632,
+              "id": 994,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 631,
+                  "id": 993,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 633,
+                  "scope": 995,
                   "src": "318:13:4",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -606,7 +606,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 630,
+                    "id": 992,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "318:6:4",
@@ -620,7 +620,7 @@
               ],
               "src": "317:15:4"
             },
-            "scope": 646,
+            "scope": 1008,
             "src": "279:54:4",
             "stateMutability": "view",
             "virtual": false,
@@ -628,13 +628,13 @@
           },
           {
             "documentation": {
-              "id": 634,
+              "id": 996,
               "nodeType": "StructuredDocumentation",
               "src": "341:58:4",
               "text": " @dev Returns the symbol of the token."
             },
             "functionSelector": "95d89b41",
-            "id": 639,
+            "id": 1001,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -642,23 +642,23 @@
             "nameLocation": "414:6:4",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 635,
+              "id": 997,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "420:2:4"
             },
             "returnParameters": {
-              "id": 638,
+              "id": 1000,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 637,
+                  "id": 999,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 639,
+                  "scope": 1001,
                   "src": "446:13:4",
                   "stateVariable": false,
                   "storageLocation": "memory",
@@ -667,7 +667,7 @@
                     "typeString": "string"
                   },
                   "typeName": {
-                    "id": 636,
+                    "id": 998,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "446:6:4",
@@ -681,7 +681,7 @@
               ],
               "src": "445:15:4"
             },
-            "scope": 646,
+            "scope": 1008,
             "src": "405:56:4",
             "stateMutability": "view",
             "virtual": false,
@@ -689,13 +689,13 @@
           },
           {
             "documentation": {
-              "id": 640,
+              "id": 1002,
               "nodeType": "StructuredDocumentation",
               "src": "469:67:4",
               "text": " @dev Returns the decimals places of the token."
             },
             "functionSelector": "313ce567",
-            "id": 645,
+            "id": 1007,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -703,23 +703,23 @@
             "nameLocation": "551:8:4",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 641,
+              "id": 1003,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "559:2:4"
             },
             "returnParameters": {
-              "id": 644,
+              "id": 1006,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 643,
+                  "id": 1005,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 645,
+                  "scope": 1007,
                   "src": "585:5:4",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -728,7 +728,7 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 642,
+                    "id": 1004,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
                     "src": "585:5:4",
@@ -742,14 +742,14 @@
               ],
               "src": "584:7:4"
             },
-            "scope": 646,
+            "scope": 1008,
             "src": "542:50:4",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 647,
+        "scope": 1009,
         "src": "175:420:4",
         "usedErrors": []
       }
@@ -762,7 +762,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.1",
-  "updatedAt": "2021-05-16T16:57:36.640Z",
+  "updatedAt": "2021-06-06T11:18:50.236Z",
   "devdoc": {
     "details": "Interface for the optional metadata functions from the ERC20 standard. _Available since v4.1._",
     "kind": "dev",

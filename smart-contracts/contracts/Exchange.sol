@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 contract Exchange {
     using SafeMath for uint256;
 
-    address owner = msg.sender;
+    address payable owner = payable(msg.sender);
     ERC20 erc20Contract;
     enum TransactionTypes {EtherToErc, ErcToEther}
 
@@ -83,13 +83,12 @@ contract Exchange {
         amtErc20Total = amtErc20Total.add(value);
     }
 
-    // Amount here is the amount of pool tokens to burn in exchange for ETH and ERC20 returned?
     // Only ERC20 contract owner can burn
     function burn(uint256 amount)
         public payable returns (uint256 amountEther, uint256 amountErc20) 
     {
         // Call the ERC20 _burn() contract too
-        balanceOf[from] = balanceOf[from].sub(amount);
+        balanceOf[owner] = balanceOf[owner].sub(amount);
         totalSupply = totalSupply.sub(amount);
         erc20Contract.burn(owner, amount);
     }
@@ -105,18 +104,18 @@ contract Exchange {
     function exchangeErc20ToEther(uint256 amtErc20In) public payable {
         //erc20Contract.approve(msg.sender, amtErc20In);      //approve(this.address, amt), this step might need to be frontend now i think about it
         erc20Contract.transferFrom(msg.sender, owner, amtErc20In);
-        uint256 amtEtherOut = exchangeRateEtherToErc * amtErc20In * 0.997;
-        msg.sender.transfer(amtEtherOut);
+        uint256 amtEtherOut = SafeMath.mul(exchangeRateEtherToErc * amtErc20In, SafeMath.div(997, 1000));
+        payable(msg.sender).transfer(amtEtherOut);
         amtEtherTotal = amtEtherTotal - amtEtherOut;
         amtErc20Total = amtErc20Total + amtErc20In;
         commissionFee =
             commissionFee +
-            (exchangeRateEtherToErc * amtErc20In * 0.003);
+            SafeMath.mul(exchangeRateEtherToErc * amtErc20In, SafeMath.div(3, 1000));
     }
 
     function exchangeEtherToErc20(uint256 amtEtherIn) public payable {
         require(msg.value == amtEtherIn);
-        uint256 amtEtherInAfterFees = amtEtherIn * 0.997;
+        uint256 amtEtherInAfterFees = SafeMath.mul(amtEtherIn, SafeMath.div(997, 1000));
         owner.transfer(amtEtherInAfterFees);
         erc20Contract.transfer(
             msg.sender,
@@ -127,6 +126,6 @@ contract Exchange {
             amtErc20Total -
             amtEtherInAfterFees /
             exchangeRateEtherToErc;
-        commissionFee = commissionFee + amtEtherIn * 0.003;
+        commissionFee = commissionFee + SafeMath.mul(amtEtherIn, SafeMath.div(3, 1000));
     }
 }
