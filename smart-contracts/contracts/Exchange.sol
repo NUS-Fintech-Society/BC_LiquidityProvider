@@ -1,9 +1,11 @@
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/math/SafeMath.sol";
-import "./ERC20.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract Exchange {
+    using SafeMath for uint256;
+
     address owner = msg.sender;
     ERC20 erc20Contract;
     enum TransactionTypes {EtherToErc, ErcToEther}
@@ -18,11 +20,11 @@ contract Exchange {
 
     // TODO: This variable might not be needed depending on the behaviour of _burn() function
     uint256 public totalSupply;
-    mapping(address => unit) public balanceOf;
+    mapping(address => uint) public balanceOf;
     uint256 commissionFee = 0 ether;
 
     constructor(
-        ERC20 erc20Address,
+        ERC20 erc20Address
         //uint256 amtErc20,
         //address ownerAddress //no need
     ) {
@@ -33,7 +35,7 @@ contract Exchange {
 
     struct Transaction {
         address user;
-        TransactionType transactionType;
+        TransactionTypes transactionType;
         uint256 transactionRate;
         uint256 amtEther;
         uint256 amtErc;
@@ -45,7 +47,7 @@ contract Exchange {
         _;
     }
 
-    function getContractOwner() external view returns (address owner) {
+    function getContractOwner() external view returns (address) {
         return owner;
     }
 
@@ -67,28 +69,28 @@ contract Exchange {
 
     //transferCommisionFee()   @bharath    
     function transferCommisionFeeEarned() external onlyOwner {
-        owner.transfer(comissionFee);
+        owner.transfer(commissionFee);
     }
 
-    function addLiquidityEther(uint256 value) payable {
+    function addLiquidityEther(uint256 value) external payable {
         //user.transfer() ether value. payable
         owner.transfer(value);
-        amtEtherTotal = add(amtEtherTotal, value);
+        amtEtherTotal = amtEtherTotal.add(value);
     }
 
-    function addLiquidityERC20(uint256 value) {
+    function addLiquidityERC20(uint256 value) external payable {
         //mint the amount of erc20 in frontend
-        amtErc20Total = add(amtErc20Total, value);
+        amtErc20Total = amtErc20Total.add(value);
     }
 
     // Amount here is the amount of pool tokens to burn in exchange for ETH and ERC20 returned?
     // Only ERC20 contract owner can burn
     function burn(uint256 amount)
-        returns (uint256 amountEther, uint256 amountErc20)
+        public payable returns (uint256 amountEther, uint256 amountErc20) 
     {
         // Call the ERC20 _burn() contract too
-        balanceOf[from] = sub(balanceOf[from], amount);
-        totalSupply = sub(totalSupply, amount);
+        balanceOf[from] = balanceOf[from].sub(amount);
+        totalSupply = totalSupply.sub(amount);
         erc20Contract.burn(owner, amount);
     }
 
@@ -100,7 +102,7 @@ contract Exchange {
         exchangeRateEtherToErc = newExchangeRate;
     }
 
-    function exchangeErc20ToEther(uint256 amtErc20In) payable {
+    function exchangeErc20ToEther(uint256 amtErc20In) public payable {
         //erc20Contract.approve(msg.sender, amtErc20In);      //approve(this.address, amt), this step might need to be frontend now i think about it
         erc20Contract.transferFrom(msg.sender, owner, amtErc20In);
         uint256 amtEtherOut = exchangeRateEtherToErc * amtErc20In * 0.997;
@@ -112,7 +114,7 @@ contract Exchange {
             (exchangeRateEtherToErc * amtErc20In * 0.003);
     }
 
-    function exchangeEtherToErc20(uint256 amtEtherIn) payable {
+    function exchangeEtherToErc20(uint256 amtEtherIn) public payable {
         require(msg.value == amtEtherIn);
         uint256 amtEtherInAfterFees = amtEtherIn * 0.997;
         owner.transfer(amtEtherInAfterFees);
