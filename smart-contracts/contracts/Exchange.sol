@@ -83,15 +83,15 @@ contract Exchange {
         amtErc20Total = amtErc20Total.add(value);
     }
 
-    // Only ERC20 contract owner can burn
-    function burn(uint256 amount)
-        public payable returns (uint256 amountEther, uint256 amountErc20) 
-    {
-        // Call the ERC20 _burn() contract too
-        balanceOf[owner] = balanceOf[owner].sub(amount);
-        totalSupply = totalSupply.sub(amount);
-        erc20Contract.burn(owner, amount);
-    }
+    // // Only ERC20 contract owner can burn
+    // function burn(uint256 amount)
+    //     public payable returns (uint256 amountEther, uint256 amountErc20) 
+    // {
+    //     // Call the ERC20 _burn() contract too
+    //     balanceOf[owner] = balanceOf[owner].sub(amount);
+    //     totalSupply = totalSupply.sub(amount);
+    //     erc20Contract.burn(owner, amount); // ERC20 standard may not support burning tho?
+    // }
 
     /*function getCurrentPrice() public view returns (uint256) {   //lets just use manual exchange rate first
         return amtEtherTotal / amtErc20Total;
