@@ -1,4 +1,6 @@
 import React from "react";
+import { makeStyles } from '@material-ui/core/styles'
+import { Grid, TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
 class Exchange extends React.Component {
   constructor(props) {
@@ -12,8 +14,8 @@ class Exchange extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
   componentDidMount = async () => {
-    const owner = await exchangeInstance.methods.getContractOwner().call();
-    if (accounts[0] === owner) {
+    const owner = await this.props.exchangeInstance.methods.getContractOwner().call();
+    if (this.props.accounts[0] === owner) {
       this.setState({ owner: true });
     }
     const exchangeRate = await this.props.exchangeContract.methods

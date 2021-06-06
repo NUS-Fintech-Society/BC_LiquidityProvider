@@ -35,7 +35,7 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
     string private _symbol;
 
     function burn(address account, uint256 amount) public virtual override {
-        _burn(account, amount)
+        _burn(account, amount);
     }
 
     /**

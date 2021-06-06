@@ -22,7 +22,7 @@ contract Exchange {
     uint256 commissionFee = 0 ether;
 
     constructor(
-        ERC20 erc20Address,
+        ERC20 erc20Address
         //uint256 amtErc20,
         //address ownerAddress //no need
     ) {

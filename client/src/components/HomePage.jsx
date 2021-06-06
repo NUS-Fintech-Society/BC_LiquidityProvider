@@ -1,6 +1,6 @@
 import React from "react";
 import ContractOwner from "./ContractOwner.jsx";
-import Exchange from "./components/Exchange.jsx";
+import Exchange from "./Exchange.jsx";
 
 class HomePage extends React.Component {
   constructor(props) {
