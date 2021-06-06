@@ -1,9 +1,11 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import "./ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract Exchange {
+    using SafeMath for uint256;
+
     address payable owner = payable(msg.sender);
     ERC20 erc20Contract;
     enum TransactionTypes {EtherToErc, ErcToEther}
@@ -45,7 +47,7 @@ contract Exchange {
         _;
     }
 
-    function getContractOwner() external view returns (address owner) {
+    function getContractOwner() external view returns (address) {
         return owner;
     }
 
@@ -70,23 +72,24 @@ contract Exchange {
         owner.transfer(commissionFee);
     }
 
-    function addLiquidityEther(uint256 value) public payable {
+    function addLiquidityEther(uint256 value) external payable {
+        //user.transfer() ether value. payable
         owner.transfer(value);
-        amtEtherTotal = SafeMath.add(amtEtherTotal, value);
+        amtEtherTotal = amtEtherTotal.add(value);
     }
 
-    function addLiquidityERC20(uint256 value) public {
+    function addLiquidityERC20(uint256 value) external payable {
         //mint the amount of erc20 in frontend
-        amtErc20Total = SafeMath.add(amtErc20Total, value);
+        amtErc20Total = amtErc20Total.add(value);
     }
 
     // Only ERC20 contract owner can burn
-    function burn(uint256 amount) public
-        returns (uint256 amountEther, uint256 amountErc20)
+    function burn(uint256 amount)
+        public payable returns (uint256 amountEther, uint256 amountErc20) 
     {
         // Call the ERC20 _burn() contract too
-        balanceOf[owner] = SafeMath.sub(balanceOf[owner], amount);
-        totalSupply = SafeMath.sub(totalSupply, amount);
+        balanceOf[owner] = balanceOf[owner].sub(amount);
+        totalSupply = totalSupply.sub(amount);
         erc20Contract.burn(owner, amount);
     }
 
