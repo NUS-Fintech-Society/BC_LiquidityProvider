@@ -1,5 +1,5 @@
 import React from "react";
-import ContractOwner from "./components/ContractOwner.jsx";
+import ContractOwner from "./ContractOwner.jsx";
 import Exchange from "./components/Exchange.jsx";
 
 class HomePage extends React.Component {
@@ -7,13 +7,13 @@ class HomePage extends React.Component {
     super(props);
     this.state = {
       exchangeRate: 0,
-      owner = false,
+      owner:  false,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
   componentDidMount = async () => {
-    const owner = await exchangeInstance.methods.getContractOwner().call();
-    if (accounts[0] === owner) {
+    const owner = await this.props.exchangeInstance.methods.getContractOwner().call();
+    if (this.props.accounts[0] === owner) {
       this.setState({ owner: true });
     }
     const exchangeRate = await this.props.exchangeContract.methods
