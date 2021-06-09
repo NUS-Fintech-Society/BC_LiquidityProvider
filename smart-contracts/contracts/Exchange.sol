@@ -80,9 +80,7 @@ contract Exchange {
     }
 
     // Only ERC20 contract owner can burn
-    function burn(uint256 amount)
-        public payable returns (uint256 amountEther, uint256 amountErc20) 
-    {
+    function burn(uint256 amount) public payable {
         // Call the ERC20 _burn() contract too
         balanceOf[owner] = balanceOf[owner].sub(amount);
         totalSupply = totalSupply.sub(amount);
