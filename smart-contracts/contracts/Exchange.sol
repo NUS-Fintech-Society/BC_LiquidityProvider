@@ -7,7 +7,7 @@ contract Exchange {
     using SafeMath for uint256;
 
     address payable owner = payable(msg.sender);
-    ERC20 erc20Contract;
+    ERC20Improved erc20Contract;
     enum TransactionTypes {EtherToErc, ErcToEther}
 
     // Make use of SafeMath to do calculation that will not be result in overflow / incorrectness
@@ -24,13 +24,9 @@ contract Exchange {
     uint256 commissionFee = 0 ether;
 
     constructor(
-        ERC20 erc20Address
-        //uint256 amtErc20,
-        //address ownerAddress //no need
+        ERC20Improved erc20Improved
     ) {
-        erc20Contract = erc20Address;
-        //owner = ownerAddress;
-        //erc20contract.transfer(owner, amtErc20); //no need. add the mint() function to erc20.
+        erc20Contract = erc20Improved;
     }
 
     struct Transaction {
@@ -83,15 +79,15 @@ contract Exchange {
         amtErc20Total = amtErc20Total.add(value);
     }
 
-    // // Only ERC20 contract owner can burn
-    // function burn(uint256 amount)
-    //     public payable returns (uint256 amountEther, uint256 amountErc20) 
-    // {
-    //     // Call the ERC20 _burn() contract too
-    //     balanceOf[owner] = balanceOf[owner].sub(amount);
-    //     totalSupply = totalSupply.sub(amount);
-    //     erc20Contract.burn(owner, amount); // ERC20 standard may not support burning tho?
-    // }
+    // Only ERC20 contract owner can burn
+    function burn(uint256 amount)
+        public payable returns (uint256 amountEther, uint256 amountErc20) 
+    {
+        // Call the ERC20 _burn() contract too
+        balanceOf[owner] = balanceOf[owner].sub(amount);
+        totalSupply = totalSupply.sub(amount);
+        erc20Contract.burn(owner, amount); // ERC20 standard may not support burning tho?
+    }
 
     /*function getCurrentPrice() public view returns (uint256) {   //lets just use manual exchange rate first
         return amtEtherTotal / amtErc20Total;
