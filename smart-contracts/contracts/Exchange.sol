@@ -54,7 +54,11 @@ contract Exchange {
     function getTotalAmtERC20() external view returns (uint256 balanceAmt) {
         return amtErc20Total;
     }
-
+    
+    function checkERC20Balance(address addr) external view returns (uint256 balanceERC20) {
+        return erc20Contract.balanceOf(addr);
+    }
+    
     function getExchangeRate() external view returns (uint256 exchangeRate) {
         return exchangeRateEtherToErc;
     }
