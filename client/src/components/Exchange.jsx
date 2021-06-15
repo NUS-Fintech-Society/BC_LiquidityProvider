@@ -22,10 +22,10 @@ class Exchange extends React.Component {
     if (this.props.accounts[0] === owner) {
       this.setState({ owner: true });
     }
-    /*const exchangeRate = await this.props.exchangeContract.methods
+    const exchangeRate = await this.props.exchangeContract.methods
       .getExchangeRate()
       .call();
-    this.setState({ exchangeRate: exchangeRate });*/
+    this.setState({ exchangeRate: exchangeRate });
   };
 
   handleInputChange(event) {
@@ -37,41 +37,41 @@ class Exchange extends React.Component {
     });
   }
 
-  handleExchange = async(e) => {
+  handleExchange = async (e) => {
     e.preventDefault();
     try {
       if (this.state.exchangeType === "etherToERC20") {
         //no need allowance function. contract send ERC20 straight to user
         await this.props.exchangeContract.methods
-        .exchangeEtherToERC20(this.state.exchangeAmt)
-        .send({ from: this.props.web3.currentProvider.selectedAddress, value: this.props.web3.utils.toWei(this.state.exchangeAmt, 'ether') })
-        .on("receipt", (receipt) => {
-          console.log(receipt);
-          alert("Success. Please wait for reload");
-          window.location.reload(false);
-        })
-        .on("error", (error) => {
-          alert("Unsuccess with error message" + error.message);
-          window.location.reload(false);
-        });
+          .exchangeEtherToERC20(this.state.exchangeAmt)
+          .send({ from: this.props.web3.currentProvider.selectedAddress, value: this.props.web3.utils.toWei(this.state.exchangeAmt, 'ether') })
+          .on("receipt", (receipt) => {
+            console.log(receipt);
+            alert("Success. Please wait for reload");
+            window.location.reload(false);
+          })
+          .on("error", (error) => {
+            alert("Unsuccess with error message" + error.message);
+            window.location.reload(false);
+          });
       } else if (this.state.exchangeType === "erc20ToEther") {
         console.log(this.props.exchangeContract.networks["3"]["address"])
         //allowance function. user allow contract to send to contract. async.
-        await this.props.erc20Contract.methods.approve(this.props.exchangeContract.address, this.state.exchangeAmt).send({from: this.props.web3.currentProvider.selectedAddress});
+        await this.props.erc20Contract.methods.approve(this.props.exchangeContract.address, this.state.exchangeAmt).send({ from: this.props.web3.currentProvider.selectedAddress });
         await this.props.exchangeContract.methods
-        .exchangeERC20ToEther(this.state.exchangeAmt)
-        .send({ from: this.props.web3.currentProvider.selectedAddress })
-        .on("receipt", (receipt) => {
-          console.log(receipt);
-          alert("Success. Please wait for reload");
-          window.location.reload(false);
-        })
-        .on("error", (error) => {
-          alert("Unsuccess with error message" + error.message);
-          window.location.reload(false);
-        });
+          .exchangeERC20ToEther(this.state.exchangeAmt)
+          .send({ from: this.props.web3.currentProvider.selectedAddress })
+          .on("receipt", (receipt) => {
+            console.log(receipt);
+            alert("Success. Please wait for reload");
+            window.location.reload(false);
+          })
+          .on("error", (error) => {
+            alert("Unsuccess with error message" + error.message);
+            window.location.reload(false);
+          });
       }
-      
+
     } catch (err) {
       console.log(err);
     }
@@ -107,52 +107,52 @@ class Exchange extends React.Component {
           style={{ marginTop: "30px", backgroundColor: "white" }}
         >
           <div className={style.paper}>
-        <form
-          className={style.form}
-          noValidate
-          onSubmit={this.handleExchange}
-          style={{ marginTop: "30px" }}
-        >
-          <Grid item xs={12}>
-            <FormControl className={style.formControl}>
-              <InputLabel id="exchangeType">ExchangeType</InputLabel>
-              <Select
-                labelId="exchangeTypeLabel"
-                id="selectExchangeType"
-                value={this.state.exchangeType}
-                onChange={this.handleInputChange}
+            <form
+              className={style.form}
+              noValidate
+              onSubmit={this.handleExchange}
+              style={{ marginTop: "30px" }}
+            >
+              <Grid item xs={12}>
+                <FormControl className={style.formControl}>
+                  <InputLabel id="exchangeType">ExchangeType</InputLabel>
+                  <Select
+                    labelId="exchangeTypeLabel"
+                    id="selectExchangeType"
+                    value={this.state.exchangeType}
+                    onChange={this.handleInputChange}
+                  >
+                    <MenuItem value={"etherToERC20"}>EtherToERC20</MenuItem>
+                    <MenuItem value={"erc20ToEther"}>ERC20ToEther (Note that you will be allowing the contract to send the erc20</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <br></br>
+              <Grid item xs={12}>
+                <TextField
+                  name="exchangeAmt"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="exchangeAmt"
+                  value={this.state.exchangeAmt}
+                  onChange={this.handleInputChange}
+                  label="Amount of selected currency to exchange:"
+                  autoFocus
+                />
+              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={style.submit}
+                style={{ marginTop: "30px", marginBottom: "20px" }}
               >
-                <MenuItem value={"etherToERC20"}>EtherToERC20</MenuItem>
-                <MenuItem value={"erc20ToEther"}>ERC20ToEther (Note that you will be allowing the contract to send the erc20</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <br></br>
-          <Grid item xs={12}>
-            <TextField
-              name="exchangeAmt"
-              variant="outlined"
-              required
-              fullWidth
-              id="exchangeAmt"
-              value={this.state.exchangeAmt}
-              onChange={this.handleInputChange}
-              label="Amount of selected currency to exchange:"
-              autoFocus
-            />
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={style.submit}
-            style={{ marginTop: "30px", marginBottom: "20px" }}
-          >
-            Submit
-          </Button>
-        </form>
-        </div>
+                Submit
+              </Button>
+            </form>
+          </div>
         </Container>
       </div>
     );

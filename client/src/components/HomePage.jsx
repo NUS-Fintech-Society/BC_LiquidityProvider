@@ -21,12 +21,12 @@ class HomePage extends React.Component {
       this.setState({ owner: true });
     }
     const totalAmtERC20 = await this.props.exchangeContract.methods.getTotalAmtERC20().call();
-    this.setState({totalAmtERC20: totalAmtERC20})
+    this.setState({ totalAmtERC20: totalAmtERC20 })
 
-    /*const exchangeRate = await this.props.exchangeContract.methods
+    const exchangeRate = await this.props.exchangeContract.methods
       .getExchangeRate()
       .call();
-    this.setState({ exchangeRate: exchangeRate });*/
+    this.setState({ exchangeRate: exchangeRate });
   };
 
   handleInputChange(event) {

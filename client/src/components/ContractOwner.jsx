@@ -18,10 +18,10 @@ class ContractOwner extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
   componentDidMount = async () => {
-    /*const exchangeRate = await this.props.exchangeContract.methods
+    const exchangeRate = await this.props.exchangeContract.methods
       .getExchangeRate()
       .call();
-    this.setState({ exchangeRate: exchangeRate });*/
+    this.setState({ exchangeRate: exchangeRate });
     const commissionFeeEarned = await this.props.exchangeContract.methods
       .getCommissionFeeEarned()
       .call();
@@ -42,7 +42,7 @@ class ContractOwner extends React.Component {
     try {
       this.props.exchangeContract.methods
         .setExchangeRate(this.state.exchangeRate)
-        .send({ from: this.props.web3.currentProvider.selectedAddress})
+        .send({ from: this.props.web3.currentProvider.selectedAddress })
         .on("receipt", (receipt) => {
           console.log(receipt);
           alert("Success. Please wait for reload");
@@ -89,7 +89,7 @@ class ContractOwner extends React.Component {
         .send({ from: this.props.web3.currentProvider.selectedAddress });
       await this.props.exchangeContract.methods
         .addLiquidityERC20(this.state.addERC20Amt)
-        .send({ from: this.props.web3.currentProvider.selectedAddress})
+        .send({ from: this.props.web3.currentProvider.selectedAddress })
         .on("receipt", (receipt) => {
           console.log(receipt);
           alert("Success. Please wait for reload");
@@ -170,155 +170,155 @@ class ContractOwner extends React.Component {
           maxWidth="xs"
           style={{ marginTop: "30px", backgroundColor: "white" }}
         >
-        <div className={style.paper}>
-        <form
-          className={style.form}
-          noValidate
-          onSubmit={this.handleSetExchangeRate}
-          style={{ marginTop: "30px" }}
-        >
-          <Grid item xs={12}>
-            <TextField
-              name="exchangeRate"
-              variant="outlined"
-              required
-              fullWidth
-              id="exchangeRate"
-              value={this.state.exchangeRate}
-              onChange={this.handleInputChange}
-              label="Exchange Rate of 1 ERC20 = ___ ether"
-              autoFocus
-            />
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={style.submit}
-            style={{ marginTop: "30px", marginBottom: "20px" }}
-          >
-            Submit
-          </Button>
-        </form>
-</div>
-<div className={style.paper}>
-        <form
-          className={style.form}
-          noValidate
-          onSubmit={this.handleAddEtherToPool}
-          style={{ marginTop: "30px" }}
-        >
-          <Grid item xs={12}>
-            <TextField
-              name="addEther"
-              variant="outlined"
-              required
-              fullWidth
-              id="addEther"
-              value={this.state.addEtherAmt}
-              onChange={this.handleInputChange}
-              label="Add ___ Ether to Pool:"
-              autoFocus
-            />
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={style.submit}
-            style={{ marginTop: "30px", marginBottom: "20px" }}
-          >
-            Submit
-          </Button>
-        </form>
-</div>          
-<div className={style.paper}>
-        <form
-          className={style.form}
-          noValidate
-          onSubmit={this.handleAddERC20ToPool}
-          style={{ marginTop: "30px" }}
-        >
-          <Grid item xs={12}>
-            <TextField
-              name="addERC20"
-              variant="outlined"
-              required
-              fullWidth
-              id="addERC20"
-              value={this.state.addERC20Amt}
-              onChange={this.handleInputChange}
-              label="Add ___ ERC20 to pool:"
-              autoFocus
-            />
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={style.submit}
-            style={{ marginTop: "30px", marginBottom: "20px" }}
-          >
-            Submit
-          </Button>
-        </form>
-</div>
-<div className={style.paper}>
+          <div className={style.paper}>
+            <form
+              className={style.form}
+              noValidate
+              onSubmit={this.handleSetExchangeRate}
+              style={{ marginTop: "30px" }}
+            >
+              <Grid item xs={12}>
+                <TextField
+                  name="exchangeRate"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="exchangeRate"
+                  value={this.state.exchangeRate}
+                  onChange={this.handleInputChange}
+                  label="Exchange Rate of 1 ERC20 = ___ ether"
+                  autoFocus
+                />
+              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={style.submit}
+                style={{ marginTop: "30px", marginBottom: "20px" }}
+              >
+                Submit
+              </Button>
+            </form>
+          </div>
+          <div className={style.paper}>
+            <form
+              className={style.form}
+              noValidate
+              onSubmit={this.handleAddEtherToPool}
+              style={{ marginTop: "30px" }}
+            >
+              <Grid item xs={12}>
+                <TextField
+                  name="addEther"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="addEther"
+                  value={this.state.addEtherAmt}
+                  onChange={this.handleInputChange}
+                  label="Add ___ Ether to Pool:"
+                  autoFocus
+                />
+              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={style.submit}
+                style={{ marginTop: "30px", marginBottom: "20px" }}
+              >
+                Submit
+              </Button>
+            </form>
+          </div>
+          <div className={style.paper}>
+            <form
+              className={style.form}
+              noValidate
+              onSubmit={this.handleAddERC20ToPool}
+              style={{ marginTop: "30px" }}
+            >
+              <Grid item xs={12}>
+                <TextField
+                  name="addERC20"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="addERC20"
+                  value={this.state.addERC20Amt}
+                  onChange={this.handleInputChange}
+                  label="Add ___ ERC20 to pool:"
+                  autoFocus
+                />
+              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={style.submit}
+                style={{ marginTop: "30px", marginBottom: "20px" }}
+              >
+                Submit
+              </Button>
+            </form>
+          </div>
+          <div className={style.paper}>
 
-        <form
-          className={style.form}
-          noValidate
-          onSubmit={this.handleBurnERC20}
-          style={{ marginTop: "30px" }}
-        >
-          <Grid item xs={12}>
-            <TextField
-              name="burnERC20"
-              variant="outlined"
-              required
-              fullWidth
-              id="burnERC20"
-              value={this.state.burnERC20}
-              onChange={this.handleInputChange}
-              label="Burn ___ ERC20:"
-              autoFocus
-            />
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={style.submit}
-            style={{ marginTop: "30px", marginBottom: "20px" }}
-          >
-            Burn
-          </Button>
-        </form>
-</div>
-<div className={style.paper}>
+            <form
+              className={style.form}
+              noValidate
+              onSubmit={this.handleBurnERC20}
+              style={{ marginTop: "30px" }}
+            >
+              <Grid item xs={12}>
+                <TextField
+                  name="burnERC20"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="burnERC20"
+                  value={this.state.burnERC20}
+                  onChange={this.handleInputChange}
+                  label="Burn ___ ERC20:"
+                  autoFocus
+                />
+              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={style.submit}
+                style={{ marginTop: "30px", marginBottom: "20px" }}
+              >
+                Burn
+              </Button>
+            </form>
+          </div>
+          <div className={style.paper}>
 
-        <form
-          className={style.form}
-          noValidate
-          onSubmit={this.handleReturnCommissionFee}
-          style={{ marginTop: "30px" }}
-        >
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={style.submit}
-            style={{ marginTop: "30px", marginBottom: "20px" }}
-          >
-            Return Commission Fee
-          </Button>
-        </form>
-        </div>
+            <form
+              className={style.form}
+              noValidate
+              onSubmit={this.handleReturnCommissionFee}
+              style={{ marginTop: "30px" }}
+            >
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={style.submit}
+                style={{ marginTop: "30px", marginBottom: "20px" }}
+              >
+                Return Commission Fee
+              </Button>
+            </form>
+          </div>
         </Container>
       </div>
     );
