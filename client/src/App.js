@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Exchange from "./contracts/Exchange.json";
-import ERC20 from "./contracts/ERC20.json";
+import ERC20Improved from "./contracts/ERC20Improved.json";
 import getWeb3 from "./getWeb3";
 import HomePage from './components/HomePage'
 
@@ -10,13 +10,12 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class App extends Component {
-  state = { storageValue: 0, web3: null, accounts: null, contract: null };
+  state = { storageValue: 0, web3: null, accounts: null, exchangeContract: null, erc20Contract: null };
 
   componentDidMount = async () => {
     try {
       // Get network provider and web3 instance.
       const web3 = await getWeb3();
-
       // Use web3 to get the user's accounts.
       const accounts = await web3.eth.getAccounts();
 
@@ -29,10 +28,10 @@ class App extends Component {
         deployedNetworkExchange && deployedNetworkExchange.address
       );
 
-      const deployedNetworkERC20 = ERC20.networks[networkId];
-      const erc20Instance = new web3.eth.Contract(
-        ERC20.abi,
-        deployedNetworkERC20 && deployedNetworkERC20.address
+      const deployedNetworkERC20Improved = ERC20Improved.networks[networkId];
+      const erc20ImprovedInstance = new web3.eth.Contract(
+        ERC20Improved.abi,
+        deployedNetworkERC20Improved && deployedNetworkERC20Improved.address
       );
 
       console.log("Web3: " , web3)
@@ -42,9 +41,11 @@ class App extends Component {
         web3,
         accounts,
         exchangeContract: exchangeInstance,
-        erc20Contract: erc20Instance,
+        erc20Contract: erc20ImprovedInstance,
         // addressType: addressType,
       });
+      console.log("h")
+
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(

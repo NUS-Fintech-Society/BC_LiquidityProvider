@@ -7,19 +7,26 @@ class HomePage extends React.Component {
     super(props);
     this.state = {
       exchangeRate: 0,
-      owner:  false,
+      totalAmtERC20: 0,
+      owner: false,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
   componentDidMount = async () => {
-    const owner = await this.props.exchangeInstance.methods.getContractOwner().call();
+    const owner = await this.props.exchangeContract.methods
+      .getContractOwner()
+      .call();
     if (this.props.accounts[0] === owner) {
+      console.log("owner");
       this.setState({ owner: true });
     }
-    const exchangeRate = await this.props.exchangeContract.methods
+    const totalAmtERC20 = await this.props.exchangeContract.methods.getTotalAmtERC20().call();
+    this.setState({totalAmtERC20: totalAmtERC20})
+
+    /*const exchangeRate = await this.props.exchangeContract.methods
       .getExchangeRate()
       .call();
-    this.setState({ exchangeRate: exchangeRate });
+    this.setState({ exchangeRate: exchangeRate });*/
   };
 
   handleInputChange(event) {
@@ -35,22 +42,21 @@ class HomePage extends React.Component {
     return (
       <div>
         <h1>Hi. Description....</h1>
-        <h4>
-          Exchange rate: 1 ERC20 =
-          {this.state.exchangeContract.getExchangeRate()} ether
-        </h4>
-        <h4>
-          Total amount of ERC20 tokens:
-          {this.state.exchangeContract.getTotalAmtERC20()}
-        </h4>
+        <p>Exchange rate: 1 ERC20 = {this.state.exchangeRate} ether</p>
+        <p>
+          Total amount of ERC20 tokens: {this.state.totalAmtERC20}
+        </p>
         {this.state.owner ? (
-        <ContractOwner
-          web3={this.props.web3}
-          accounts={this.props.accounts}
-          exchangeContract={this.props.exchangeContract}
-          erc20Contract={this.props.erc20Contract}
-        />) : (<span></span>)}
-        <Exchange 
+          <ContractOwner
+            web3={this.props.web3}
+            accounts={this.props.accounts}
+            exchangeContract={this.props.exchangeContract}
+            erc20Contract={this.props.erc20Contract}
+          />
+        ) : (
+          <span></span>
+        )}
+        <Exchange
           web3={this.props.web3}
           accounts={this.props.accounts}
           exchangeContract={this.props.exchangeContract}

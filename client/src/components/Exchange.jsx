@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import Container from "@material-ui/core/Container";
 
 class Exchange extends React.Component {
   constructor(props) {
@@ -17,14 +18,14 @@ class Exchange extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
   componentDidMount = async () => {
-    const owner = await this.props.exchangeInstance.methods.getContractOwner().call();
+    const owner = await this.props.exchangeContract.methods.getContractOwner().call();
     if (this.props.accounts[0] === owner) {
       this.setState({ owner: true });
     }
-    const exchangeRate = await this.props.exchangeContract.methods
+    /*const exchangeRate = await this.props.exchangeContract.methods
       .getExchangeRate()
       .call();
-    this.setState({ exchangeRate: exchangeRate });
+    this.setState({ exchangeRate: exchangeRate });*/
   };
 
   handleInputChange(event) {
@@ -54,6 +55,7 @@ class Exchange extends React.Component {
           window.location.reload(false);
         });
       } else if (this.state.exchangeType === "erc20ToEther") {
+        console.log(this.props.exchangeContract.networks["3"]["address"])
         //allowance function. user allow contract to send to contract. async.
         await this.props.erc20Contract.methods.approve(this.props.exchangeContract.address, this.state.exchangeAmt).send({from: this.props.web3.currentProvider.selectedAddress});
         await this.props.exchangeContract.methods
@@ -99,6 +101,12 @@ class Exchange extends React.Component {
 
     return (
       <div>
+        <Container
+          component="main"
+          maxWidth="xs"
+          style={{ marginTop: "30px", backgroundColor: "white" }}
+        >
+          <div className={style.paper}>
         <form
           className={style.form}
           noValidate
@@ -119,6 +127,7 @@ class Exchange extends React.Component {
               </Select>
             </FormControl>
           </Grid>
+          <br></br>
           <Grid item xs={12}>
             <TextField
               name="exchangeAmt"
@@ -143,6 +152,8 @@ class Exchange extends React.Component {
             Submit
           </Button>
         </form>
+        </div>
+        </Container>
       </div>
     );
   }

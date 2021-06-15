@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Container from "@material-ui/core/Container";
 
 class ContractOwner extends React.Component {
   constructor(props) {
@@ -17,10 +18,10 @@ class ContractOwner extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
   componentDidMount = async () => {
-    const exchangeRate = await this.props.exchangeContract.methods
+    /*const exchangeRate = await this.props.exchangeContract.methods
       .getExchangeRate()
       .call();
-    this.setState({ exchangeRate: exchangeRate });
+    this.setState({ exchangeRate: exchangeRate });*/
     const commissionFeeEarned = await this.props.exchangeContract.methods
       .getCommissionFeeEarned()
       .call();
@@ -163,7 +164,13 @@ class ContractOwner extends React.Component {
 
     return (
       <div>
-        <h3> Commission Fee Earned in Total: {this.state.commissionFee}</h3>
+        <p> Commission Fee Earned in Total: {this.state.commissionFee}</p>
+        <Container
+          component="main"
+          maxWidth="xs"
+          style={{ marginTop: "30px", backgroundColor: "white" }}
+        >
+        <div className={style.paper}>
         <form
           className={style.form}
           noValidate
@@ -194,7 +201,8 @@ class ContractOwner extends React.Component {
             Submit
           </Button>
         </form>
-
+</div>
+<div className={style.paper}>
         <form
           className={style.form}
           noValidate
@@ -225,7 +233,8 @@ class ContractOwner extends React.Component {
             Submit
           </Button>
         </form>
-
+</div>          
+<div className={style.paper}>
         <form
           className={style.form}
           noValidate
@@ -256,6 +265,8 @@ class ContractOwner extends React.Component {
             Submit
           </Button>
         </form>
+</div>
+<div className={style.paper}>
 
         <form
           className={style.form}
@@ -287,6 +298,8 @@ class ContractOwner extends React.Component {
             Burn
           </Button>
         </form>
+</div>
+<div className={style.paper}>
 
         <form
           className={style.form}
@@ -305,6 +318,8 @@ class ContractOwner extends React.Component {
             Return Commission Fee
           </Button>
         </form>
+        </div>
+        </Container>
       </div>
     );
   }
