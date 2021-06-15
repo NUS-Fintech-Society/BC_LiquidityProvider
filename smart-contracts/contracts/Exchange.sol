@@ -55,6 +55,10 @@ contract Exchange {
         return amtErc20Total;
     }
 
+    function getExchangeRate() external view returns (uint256 exchangeRate) {
+        return exchangeRateEtherToErc;
+    }
+
     function getCommissionFeeEarned()
         external
         view
