@@ -43,7 +43,7 @@ class Exchange extends React.Component {
       if (this.state.exchangeType === "etherToERC20") {
         //no need allowance function. contract send ERC20 straight to user
         await this.props.exchangeContract.methods
-          .exchangeEtherToERC20(this.state.exchangeAmt)
+          .exchangeEtherToErc20(this.state.exchangeAmt)
           .send({ from: this.props.web3.currentProvider.selectedAddress, value: this.props.web3.utils.toWei(this.state.exchangeAmt, 'ether') })
           .on("receipt", (receipt) => {
             console.log(receipt);
@@ -59,7 +59,7 @@ class Exchange extends React.Component {
         //allowance function. user allow contract to send to contract. async.
         await this.props.erc20Contract.methods.approve(this.props.exchangeContract.address, this.state.exchangeAmt).send({ from: this.props.web3.currentProvider.selectedAddress });
         await this.props.exchangeContract.methods
-          .exchangeERC20ToEther(this.state.exchangeAmt)
+          .exchangeErc20ToEther(this.state.exchangeAmt)
           .send({ from: this.props.web3.currentProvider.selectedAddress })
           .on("receipt", (receipt) => {
             console.log(receipt);

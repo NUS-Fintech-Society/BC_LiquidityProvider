@@ -2,7 +2,7 @@ const path = require("path");
 require("dotenv").config({ path: "./.env" });
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 const MNEMONIC =
-  "birth laundry beyond tomorrow toward pond chef crawl tiger path road moment";
+  "hotel extend coconut elegant blush health trend pen weather interest pelican clarify";
 
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
@@ -20,7 +20,7 @@ module.exports = {
       provider: function () {
         return new HDWalletProvider(
           MNEMONIC,
-          "https://ropsten.infura.io/v3/0ab2acb8bf1a4aa9925e101e6c9313e8",
+          "https://ropsten.infura.io/v3/87a836c4a1634d58afbadfdaea9cbb6b",
           0
         );
       },
